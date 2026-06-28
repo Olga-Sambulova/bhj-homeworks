@@ -17,14 +17,20 @@ class Game {
   }
 
   registerEvents() {
-    /*
-      TODO:
-      Написать обработчик события, который откликается
-      на каждый введённый символ.
-      В случае правильного ввода символа вызываем this.success()
-      При неправильном вводе символа - this.fail();
-      DOM-элемент текущего символа находится в свойстве this.currentSymbol.
-     */
+    document.addEventListener('keyup', (event) => {
+      // Получаем введённый символ
+      const key = String.fromCharCode(event.keyCode);
+      
+      // Получаем ожидаемый символ
+      const expectedSymbol = this.currentSymbol.textContent;
+      
+      // Сравниваем без учёта регистра
+      if (key.toLowerCase() === expectedSymbol.toLowerCase()) {
+        this.success();
+      } else {
+        this.fail();
+      }
+    });
   }
 
   success() {
@@ -54,7 +60,6 @@ class Game {
 
   setNewWord() {
     const word = this.getWord();
-
     this.renderWord(word);
   }
 
@@ -90,5 +95,4 @@ class Game {
   }
 }
 
-new Game(document.getElementById('game'))
-
+new Game(document.getElementById('game'));
